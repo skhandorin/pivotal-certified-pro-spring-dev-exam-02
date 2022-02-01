@@ -31,6 +31,7 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.core.env.Environment;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -71,6 +72,9 @@ class SimpleAppCfgTest {
             logger.info("Bean " + beanName + " of type "
                     + ctx.getBean(beanName).getClass().getSimpleName());
         }
+
+        var environment = ctx.getBean("environment", Environment.class);
+        assertNotNull(environment);
 
         var simpleBean = ctx.getBean("simpleBeanImpl", SimpleBean.class);
         assertNotNull(simpleBean);
