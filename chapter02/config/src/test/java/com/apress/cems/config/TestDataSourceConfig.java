@@ -29,6 +29,7 @@ package com.apress.cems.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
@@ -49,6 +50,8 @@ public class TestDataSourceConfig {
     private String username;
     @Value("${db.password}")
     private String password;
+    @Value("${qwe}")
+    private String qwe;
 
     @Bean(name = {"one", "two"})
     public DataSource dataSource() {
@@ -60,4 +63,16 @@ public class TestDataSourceConfig {
         return ds;
     }
 
+//    @Bean
+//    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+//        return new PropertySourcesPlaceholderConfigurer();
+//    }
+
+    public String getDriverClassName() {
+        return driverClassName;
+    }
+
+    public String getQwe() {
+        return qwe;
+    }
 }

@@ -65,4 +65,22 @@ class TestDataSourceConfigTest {
         var dataSource = ctx.getBean("two", DataSource.class);
         assertNotNull(dataSource);
     }
+
+    @Test
+    void testTestDataSourceConfig() {
+        var ctx =
+                new AnnotationConfigApplicationContext(TestDataSourceConfig.class);
+
+        for (String beanName : ctx.getBeanDefinitionNames()) {
+            logger.info("Bean " + beanName + " of type "
+                    + ctx.getBean(beanName).getClass().getSimpleName());
+        }
+
+        var dataSource = ctx.getBean("two", DataSource.class);
+        assertNotNull(dataSource);
+
+        var testDataSourceConfig = ctx.getBean("testDataSourceConfig", TestDataSourceConfig.class);
+        logger.info("db.driverClassName=" + testDataSourceConfig.getDriverClassName());
+        logger.info("qwe=" + testDataSourceConfig.getQwe());
+    }
 }
