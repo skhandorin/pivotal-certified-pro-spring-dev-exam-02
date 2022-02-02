@@ -32,6 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
@@ -52,10 +53,15 @@ public class AppConfigTest {
         var salary = employee.getSalary();
         assertNotNull(salary);
         logger.info("Salary bean actual type: {}", salary.getClass().toString());
+        logger.info("salary: " + salary.toString());
 
         logger.info("Salary: {}", salary.getAmount());
         logger.info("Salary: {}", salary.getAmount());
-        logger.info("Salary: {}", salary.getAmount());
+
+        var salary2 = ctx.getBean(Salary.class);
+        assertEquals(salary, salary2);
+        logger.info("salary2: " + salary2);
+        logger.info("Salary2: {}", salary2.getAmount());
 
     }
 }

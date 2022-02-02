@@ -29,34 +29,34 @@ package com.apress.cems.scopes.proxy;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Description;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
+
+import java.util.Random;
 
 /**
  * @author Iuliana Cosmina
  * @since 1.0
  */
+@Description("Salary for an employee might change, so this is a suitable example for a prototype scoped bean")
 @Component
-public class Employee {
-    private Logger log = LoggerFactory.getLogger(Employee.class);
+@Scope(value = "prototype", proxyMode = ScopedProxyMode.INTERFACES)
+public class SalaryImpl implements Salary {
 
-    private Salary salary;
+    private Logger logger = LoggerFactory.getLogger(SalaryImpl.class);
 
-    public Employee(Salary salary) {
-        log.info("1. In Employee constructor");
-        log.info("2. In Employee constructor: salary.amount = " + salary.getAmount());
-        log.info("3. In Employee constructor: salary.amount = " + salary.getAmount());
-        this.salary = salary;
+    private Integer amount;
+
+    public SalaryImpl() {
+        Random rand = new Random();
+        this.amount = rand.nextInt(10_000) +  50_000;
+        logger.info(" -> In Salary constructor (" + amount + ")");
     }
 
-    @Autowired
-    public void setSalary(Salary salary) {
-        log.info("1. In Employee.setSalary");
-        log.info("2. In Employee.setSalary: salary.amount = " + salary.getAmount());
-        this.salary = salary;
-    }
-
-    public Salary getSalary() {
-        return salary;
+    @Override
+    public Integer getAmount() {
+        return amount;
     }
 }
